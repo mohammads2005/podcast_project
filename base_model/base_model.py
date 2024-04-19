@@ -1,6 +1,7 @@
 from abc import abstractmethod
 
 from django.db import models
+from django.conf import settings
 
 
 class BaseModel(models.Model):
@@ -16,3 +17,14 @@ class BaseModel(models.Model):
     @abstractmethod
     def __str__(self) -> str:
         raise NotImplementedError("Please Implement the (__str__) method")
+
+
+class BaseModelWithUser(BaseModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
+
+    class Meta:
+        abstract = True
+        ordering = ("pk",)
+
+    def __str__(self) -> str:
+        return super().__str__()

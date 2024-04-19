@@ -9,7 +9,9 @@ from content.models import Episode
 
 
 class CustomUser(AbstractUser):
-    profile_picture = models.ImageField(upload_to="profile_pictures/", verbose_name="Profile Pictures")
+    profile_picture = models.ImageField(
+        upload_to="profile_pictures/", verbose_name="Profile Pictures"
+    )
     bio = models.TextField(verbose_name="Bio")
     email = models.EmailField(verbose_name="Email")
     social_link = models.URLField(verbose_name="Social Link")
@@ -22,8 +24,12 @@ class CustomUser(AbstractUser):
 
 
 class Channel(BaseModel):
-    name = models.CharField(max_length=255, unique=True, verbose_name="Channel's Name")
-    logo = models.ImageField(upload_to="logos/", verbose_name="Channel's Logo")
+    name = models.CharField(
+        max_length=255, unique=True, verbose_name="Channel's Name"
+    )
+    logo = models.ImageField(
+        upload_to="logos/", verbose_name="Channel's Logo"
+    )
 
     class Meta:
         ordering = ("name",)
