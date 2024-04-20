@@ -69,6 +69,14 @@ class Comments(BaseModelWithUser):
         on_delete=models.CASCADE,
     )
 
+    class Meta:
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
+        ordering = ("created_date",)
+
+    def __str__(self):
+        return self.context[:10] + self.episode.title
+
 
 class Playlist(BaseModelWithUser):
     name = models.CharField(max_length=255, verbose_name="Playlist Name")

@@ -13,7 +13,6 @@ class CustomUser(AbstractUser):
         upload_to="profile_pictures/", verbose_name="Profile Pictures"
     )
     bio = models.TextField(verbose_name="Bio")
-    email = models.EmailField(verbose_name="Email")
     social_link = models.URLField(verbose_name="Social Link")
 
     class Meta:
