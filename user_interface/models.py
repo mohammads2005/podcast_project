@@ -3,7 +3,6 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
 from base_model.base_model import BaseModel
-from content.models import Episode
 
 # Create your models here.
 
@@ -59,26 +58,3 @@ class ChannelOwner(BaseModel):
 
     def __str__(self) -> str:
         return self.channel.name
-
-
-class ChannelEpisode(BaseModel):
-    channel = models.ForeignKey(
-        Channel,
-        on_delete=models.CASCADE,
-        related_name="channel_episode",
-        verbose_name="Channel",
-    )
-    episode = models.ForeignKey(
-        Episode,
-        on_delete=models.CASCADE,
-        related_name="channel_episode",
-        verbose_name="Episode",
-    )
-
-    class Meta:
-        verbose_name = "Channel's Episode"
-        verbose_name_plural = "Channel's Episodes"
-        ordering = ("created_date",)
-
-    def __str__(self) -> str:
-        return self.channel.name + self.episode.title
