@@ -8,5 +8,5 @@ class EpisodeForm(forms.ModelForm):
     class Meta:
         model = Episode
         fields = (
-            "title", "description", "audio_file", "channel_mentions",
+            "title", "description", "audio_file",
         )
