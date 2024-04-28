@@ -19,9 +19,6 @@ class EpisodeModelView(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         return Response({"detail": "POST method is not allowed."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    # def post(request, *args, **kwargs):
-    #     return Response({"detail": "POST method is not allowed."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
 
 def upload_new_podcast(request):
     if request.method == 'POST':
