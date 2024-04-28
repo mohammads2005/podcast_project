@@ -11,9 +11,6 @@ from user_interface.models import Channel
 class Episode(BaseModel):
     title = models.TextField(verbose_name="Episode Title")
     audio_file = models.FileField(upload_to="audios/", verbose_name="Audio Content")
-    channel_mentions = models.ManyToManyField(
-        Channel, related_name="episode", verbose_name="Channel Mentions", blank=True,
-    )
 
     class Meta:
         verbose_name = "Episode"
@@ -45,3 +42,26 @@ class EpisodeChannel(BaseModel):
 
     def __str__(self) -> str:
         return self.channel.name + self.episode.title
+
+
+class EpisodeMentions(BaseModel):
+    episode = models.ForeignKey(
+        Episode,
+        on_delete=models.CASCADE,
+        verbose_name="Episode",
+        related_name="mentions",
+    )
+    channel_mentioned = models.ForeignKey(
+        Channel,
+        on_delete=models.CASCADE,
+        verbose_name="Channel Mentioned",
+        related_name="mentions",
+    )
+
+    class Meta:
+        verbose_name = "Episode Mentions"
+        verbose_name_plural = "Episodes Mentions"
+        ordering = ("created_date",)
+
+    def __str__(self) -> str:
+        return self.episode.title + " - " + self.channel_mentioned.name
