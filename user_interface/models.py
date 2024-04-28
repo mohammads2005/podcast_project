@@ -11,8 +11,8 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(
         upload_to="profile_pictures/", verbose_name="Profile Pictures"
     )
-    bio = models.TextField(verbose_name="Bio")
-    social_link = models.URLField(verbose_name="Social Link")
+    bio = models.TextField(verbose_name="Bio", blank=True)
+    social_link = models.URLField(verbose_name="Social Link", blank=True)
 
     class Meta:
         db_table = "custom_user"
