@@ -1,7 +1,6 @@
 from django import forms
 
-from content.models import Episode
-# from user_interface.models import Channel
+from .models import Episode
 
 
 class EpisodeForm(forms.ModelForm):
