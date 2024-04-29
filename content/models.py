@@ -11,7 +11,12 @@ from user_interface.models import Channel
 class Episode(BaseModel):
     title = models.TextField(verbose_name="Episode Title")
     audio_file = models.FileField(upload_to="audios/", verbose_name="Audio Content")
-    image = models.ImageField(upload_to="content_images/", verbose_name="Image Content")
+    image = models.ImageField(
+        upload_to="content_images/",
+        verbose_name="Image Content",
+        blank=True,
+        null=True,
+    )
 
     def image_tag(self):
         if self.image:
