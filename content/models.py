@@ -1,5 +1,5 @@
 from django.db import models
-# from django.conf import settings
+from django.utils.html import mark_safe
 
 from base_model.base_model import BaseModel
 from user_interface.models import Channel
@@ -11,11 +11,20 @@ from user_interface.models import Channel
 class Episode(BaseModel):
     title = models.TextField(verbose_name="Episode Title")
     audio_file = models.FileField(upload_to="audios/", verbose_name="Audio Content")
+    image = models.ImageField(upload_to="content_images/", verbose_name="Image Content")
+
+    def image_tag(self):
+        if self.image:
+            return mark_safe(
+                '<img src="/media/{}" width=128px/>'.format(self.image)
+            )
+        else:
+            return "No Image Found!"
 
     class Meta:
         verbose_name = "Episode"
         verbose_name_plural = "Episodes"
-        ordering = ['created_date']
+        ordering = ('created_date',)
 
     def __str__(self):
         return self.title
