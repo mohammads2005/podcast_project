@@ -11,6 +11,7 @@ class EpisodeAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'title',
+        'image_tag',
         'description',
         'audio_file',
         'created_date',
