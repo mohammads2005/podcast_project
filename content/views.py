@@ -108,7 +108,7 @@ class ChannelEpisodesView(APIView):
         return Response(channel_data)
 
 
-class EpisodeDownloadView(APIView):
+class EpisodeDownloadView(LoginRequiredMixin, APIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     @staticmethod
@@ -118,7 +118,7 @@ class EpisodeDownloadView(APIView):
         return FileResponse(episode.audio_file, as_attachment=True, filename=f"{episode.title}.mp3")
 
 
-class AudioPlayerView(APIView):
+class AudioPlayerView(LoginRequiredMixin, APIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get(self, request, *args, **kwargs):
