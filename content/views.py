@@ -1,18 +1,14 @@
-import os
-# import puydub.utils import mediainfo
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import FileResponse
 from django.shortcuts import redirect, HttpResponse, get_object_or_404, render
 from django.views.generic.edit import FormView
-from django.core.exceptions import ValidationError
 
 from .forms import EpisodeForm, EpisodeMentionsForm
 from .models import Episode, EpisodeChannel, EpisodeMentions
 from .serializers import EpisodeSerializer, EpisodeChannelSerializer
 
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -48,31 +44,7 @@ class NewEpisodeFormView(LoginRequiredMixin, FormView):
 
         return context
 
-    # @staticmethod
-    # def clean_audio_file(form):
-    #     file = form.cleaned_data.get('audio_file', False)
-    #     if file:
-    #         if file.content_type not in ['audio/mpeg', 'audio/mp4', 'audio/basic', 'audio/mp3']:
-    #             raise ValidationError(
-    #                 "Sorry, we do not support that audio MIME type. Please try uploading an mp3 file, or other common "
-    #                 "audio type."
-    #             )
-    #
-    #         if os.path.splitext(file.name)[1] not in ['.mp3', '.au', '.midi', '.ogg', '.ra', '.ram', '.wav']:
-    #             raise ValidationError("Sorry, your audio file doesn't have a proper extension.")
-    #
-    #         file_content = file.read()
-    #         mime_type = magic.from_buffer(file_content, mime=True)
-    #         if not mime_type.startswith('audio'):
-    #                 raise ValidationError("Not a valid audio file")
-    #         else:
-    #             raise ValidationError("Couldn't read uploaded file")
-    #
-    #     else:
-    #         raise ValidationError("Couldn't read uploaded file")
-
     def form_valid(self, form):
-        # self.clean_audio_file(form)
         episode = form.save()
         channel_owner = self.channel_owner_info()
         EpisodeChannel.objects.create(episode=episode, channel=channel_owner.channel)
