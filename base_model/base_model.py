@@ -7,7 +7,7 @@ from django.conf import settings
 class BaseModel(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Date Created")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Date Updated")
-    description = models.TextField(verbose_name="Description")
+    description = models.TextField(verbose_name="Description", blank=True)
     is_allowed = models.BooleanField(default=False, verbose_name="Allowed Activities")
 
     class Meta:
