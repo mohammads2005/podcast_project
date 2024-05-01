@@ -21,8 +21,8 @@ class EpisodeAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
 
 
-@register(EpisodeChannel)
-class EpisodeChannelAdmin(admin.ModelAdmin):
+@register(*(EpisodeChannel, EpisodeMentions))
+class EpisodeChannelsAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'get_episode_title',
@@ -31,25 +31,10 @@ class EpisodeChannelAdmin(admin.ModelAdmin):
     )
     list_display_links = ('id',)
     list_filter = ('created_date', 'updated_date')
+    search_fields = ('episode__title', 'channel__name')
+    autocomplete_fields = ('episode', 'channel')
 
-    @admin.display(ordering='created_date', description='Title')
-    def get_episode_title(self, obj):
-        return obj.episode.title
-
-    @admin.display(ordering='created_date', description='Channel Name')
-    def get_channel_name(self, obj):
-        return obj.channel.name
-
-
-@register(EpisodeMentions)
-class EpisodeMentionsAdmin(admin.ModelAdmin):
-    list_display = (
-        'id', 'get_episode_title', 'get_channel_name',
-    )
-    list_display_links = ('id',)
-    list_filter = ('created_date', 'updated_date')
-
-    @admin.display(ordering='created_date', description='Title')
+    @admin.display(ordering='created_date', description='Episode Title')
     def get_episode_title(self, obj):
         return obj.episode.title
 

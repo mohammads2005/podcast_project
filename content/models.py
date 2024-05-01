@@ -4,7 +4,6 @@ from django.utils.html import mark_safe
 from base_model.base_model import BaseModel
 from user_interface.models import Channel
 
-
 # Create your models here.
 
 
@@ -65,9 +64,8 @@ class EpisodeMentions(BaseModel):
         verbose_name="Episode",
         related_name="mentions",
     )
-    channel_mentioned = models.ForeignKey(
+    channel = models.ManyToManyField(
         Channel,
-        on_delete=models.CASCADE,
         verbose_name="Channel Mentioned",
         related_name="mentions",
     )
@@ -78,4 +76,5 @@ class EpisodeMentions(BaseModel):
         ordering = ("created_date",)
 
     def __str__(self) -> str:
-        return self.episode.title + " - " + self.channel_mentioned.name
+        channels = list(self.channel.all().values_list('name', flat=True))
+        return f"{self.episode.title} - {', '.join(str(channel) for channel in channels)}"
