@@ -59,6 +59,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, "blog/templates"),
+            os.path.join(BASE_DIR, "content/templates"),
+            os.path.join(BASE_DIR, "user_interface/templates"),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,6 +133,9 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # Changing the default User model and using the CustomUser model instead
 
 AUTH_USER_MODEL = "user_interface.CustomUser"
+
+LOGIN_REDIRECT_URL = '/profile'
